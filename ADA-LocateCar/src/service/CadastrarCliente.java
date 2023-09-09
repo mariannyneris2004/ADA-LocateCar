@@ -14,7 +14,8 @@ public class CadastrarCliente {
         if((cliente.getDocumento().length() == 11 || cliente.getDocumento().length() == 14)
             && !cliente.getNome().isEmpty()){
             repository.cadastrar(cliente);
+            return cliente;
         }
-        return cliente;
+        return null;
     }
 }

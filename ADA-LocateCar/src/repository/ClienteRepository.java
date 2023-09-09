@@ -16,7 +16,7 @@ public class ClienteRepository {
     }
 
     public Cliente alterar(Cliente cliente) {
-        if(buscar(cliente.getDocumento()) != null){
+        if(buscarPorDocumento(cliente.getDocumento()) != null){
             clientes.replace(cliente.getId(), cliente);
         }
         return null;
@@ -26,7 +26,7 @@ public class ClienteRepository {
         return this.clientes;
     }
 
-    public Cliente buscar(String documento) {
+    public Cliente buscarPorDocumento(String documento) {
         for (Cliente cliente:clientes.values()) {
             if (cliente.getDocumento().equals(documento)) {
                 return clientes.get(cliente.getId());
@@ -34,9 +34,12 @@ public class ClienteRepository {
         }
         return null;
     }
+    public Cliente buscarPorId(Integer id) {
+        return clientes.get(id);
+    }
 
     public boolean deletar(Cliente cliente) {
-        if (buscar(cliente.getDocumento()) != null){
+        if (buscarPorDocumento(cliente.getDocumento()) != null){
             clientes.remove(cliente.getId());
             return true;
         }
