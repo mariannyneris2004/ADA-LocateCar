@@ -1,7 +1,12 @@
 package service;
 
+import model.Aluguel;
 import model.Cliente;
 import model.Veiculo;
+import repository.ClienteRepository;
+import repository.VeiculoRepository;
+import views.ClienteView;
+import views.VeiculoView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +18,14 @@ public class LocadoraVeiculos {
     private static List<Aluguel> alugueis = new ArrayList<>();
 
     public static void main(String[] args) {
+        ClienteRepository clienteRepository = new ClienteRepository();
+        VeiculoRepository veiculoRepository = new VeiculoRepository();
+
+        CadastrarVeiculo cadastrarVeiculo = new CadastrarVeiculo(veiculoRepository);
+        CadastrarCliente cadastrarCliente = new CadastrarCliente(clienteRepository);
+        BuscarVeiculo buscarVeiculo = new BuscarVeiculo(veiculoRepository);
+        AlterarVeiculo alterarVeiculo = new AlterarVeiculo(veiculoRepository);
+
         Scanner scanner = new Scanner(System.in);
         int opcao;
 
@@ -31,16 +44,16 @@ public class LocadoraVeiculos {
 
             switch (opcao) {
                 case 1:
-                    cadastrarVeiculo();
+                    VeiculoView.cadastrarVeiculo(cadastrarVeiculo);
                     break;
                 case 2:
                     alterarVeiculo();
                     break;
                 case 3:
-                    buscarVeiculo();
+                    VeiculoView.buscarVeiculo(buscarVeiculo);
                     break;
                 case 4:
-                    cadastrarCliente();
+                    ClienteView.cadastrarCliente(cadastrarCliente);
                     break;
                 case 5:
                     alterarCliente();
@@ -61,91 +74,6 @@ public class LocadoraVeiculos {
         } while (opcao != 8);
     }
 
-    private static void cadastrarVeiculo() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Digite a placa do veículo: ");
-        String placa = scanner.nextLine();
-        System.out.print("Digite o nome do veículo: ");
-        String nome = scanner.nextLine();
-        System.out.print("Digite o tipo do veículo (PEQUENO, MEDIO ou SUV): ");
-        String tipo = scanner.nextLine();
-
-        Veiculo veiculo = new Veiculo(placa, nome, tipo);
-        veiculos.add(veiculo);
-        System.out.println("Veículo cadastrado com sucesso!");
-    }
-
-    private static void alterarVeiculo() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Digite a placa do veículo que deseja alterar: ");
-        String placa = scanner.nextLine();
-        Veiculo veiculo = buscarVeiculoPorPlaca(placa);
-
-        if (veiculo != null) {
-            System.out.print("Digite o novo nome do veículo: ");
-            String novoNome = scanner.nextLine();
-            System.out.print("Digite o novo tipo do veículo (PEQUENO, MEDIO ou SUV): ");
-            String novoTipo = scanner.nextLine();
-
-            //veiculo.setNome(novoNome);
-            //veiculo.setTipo(novoTipo);
-            System.out.println("Veículo alterado com sucesso!");
-        } else {
-            System.out.println("Veículo não encontrado.");
-        }
-    }
-
-    private static void buscarVeiculo() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Digite parte do nome do veículo: ");
-        String parteNome = scanner.nextLine();
-
-        List<Veiculo> veiculosEncontrados = new ArrayList<>();
-        for (Veiculo veiculo : veiculos) {
-            if (veiculo.getNome().contains(parteNome)) {
-                veiculosEncontrados.add(veiculo);
-            }
-        }
-
-        if (veiculosEncontrados.isEmpty()) {
-            System.out.println("Nenhum veículo encontrado com o nome informado.");
-        } else {
-            System.out.println("Veículos encontrados:");
-            for (Veiculo veiculo : veiculosEncontrados) {
-                System.out.println("Placa: " + veiculo.getPlaca());
-                System.out.println("Nome: " + veiculo.getNome());
-                System.out.println("Tipo: " + veiculo.getTipo());
-                System.out.println("Disponível: " + (veiculo.isDisponivel() ? "Sim" : "Não"));
-                System.out.println();
-            }
-        }
-    }
-
-    private static void cadastrarCliente() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Digite o tipo de cliente (PF para Pessoa Física, PJ para Pessoa Jurídica): ");
-        String tipoCliente = scanner.nextLine();
-
-        if (tipoCliente.equalsIgnoreCase("PF")) {
-            System.out.print("Digite o CPF do cliente: ");
-            String cpf = scanner.nextLine();
-            System.out.print("Digite o nome do cliente: ");
-            String nome = scanner.nextLine();
-            Cliente cliente = new Cliente(cpf, nome);
-            clientes.add(cliente);
-            System.out.println("Cliente Pessoa Física cadastrado com sucesso!");
-        } else if (tipoCliente.equalsIgnoreCase("PJ")) {
-            System.out.print("Digite o CNPJ do cliente: ");
-            String cnpj = scanner.nextLine();
-            System.out.print("Digite o nome do cliente: ");
-            String nome = scanner.nextLine();
-            Cliente cliente = new Cliente(cnpj, nome);
-            clientes.add(cliente);
-            System.out.println("Cliente Pessoa Jurídica cadastrado com sucesso!");
-        } else {
-            System.out.println("Tipo de cliente inválido.");
-        }
-    }
 
     private static void alterarCliente() {
         Scanner scanner = new Scanner(System.in);
@@ -236,15 +164,6 @@ public class LocadoraVeiculos {
         } else {
             System.out.println("Veículo não encontrado.");
         }
-    }
-
-    private static Veiculo buscarVeiculoPorPlaca(String placa) {
-        for (Veiculo veiculo : veiculos) {
-            if (veiculo.getPlaca().equalsIgnoreCase(placa)) {
-                return veiculo;
-            }
-        }
-        return null;
     }
 
     private static Cliente buscarClientePorId(String id) {

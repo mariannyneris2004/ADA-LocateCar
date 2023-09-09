@@ -1,0 +1,45 @@
+package repository;
+
+import model.Cliente;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class ClienteRepository {
+    private Map<Integer, Cliente> clientes = new HashMap<>();
+    private int ultimoId = 0;
+
+    public Cliente cadastrar(Cliente cliente) {
+        ultimoId++;
+        this.clientes.put(ultimoId, cliente);
+        return cliente;
+    }
+
+    public Cliente alterar(Cliente cliente) {
+        if(buscar(cliente.getDocumento()) != null){
+            clientes.replace(cliente.getId(), cliente);
+        }
+        return null;
+    }
+
+    public Map<Integer, Cliente> buscarLista() {
+        return this.clientes;
+    }
+
+    public Cliente buscar(String documento) {
+        for (Cliente cliente:clientes.values()) {
+            if (cliente.getDocumento().equals(documento)) {
+                return clientes.get(cliente.getId());
+            }
+        }
+        return null;
+    }
+
+    public boolean deletar(Cliente cliente) {
+        if (buscar(cliente.getDocumento()) != null){
+            clientes.remove(cliente.getId());
+            return true;
+        }
+        return false;
+    }
+}

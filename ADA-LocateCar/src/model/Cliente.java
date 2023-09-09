@@ -1,19 +1,24 @@
 package model;
 
 public class Cliente {
-    private String id;
+    private int id;
     private String nome;
+    private String documento;
 
-    public Cliente(String var1, String var2) {
-        this.id = var1;
-        this.nome = var2;
+    public Cliente(String nome, String documento) {
+        this.nome = nome;
+        this.documento = documento;
     }
 
-    public String getId() {
+    public int getId() {
         return this.id;
     }
 
     public String getNome() {
         return this.nome;
+    }
+
+    public String getDocumento() {
+        return documento;
     }
 }

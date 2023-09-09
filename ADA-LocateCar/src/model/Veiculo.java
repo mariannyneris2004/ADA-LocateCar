@@ -2,26 +2,32 @@ package model;
 
 public class Veiculo {
     private String placa;
-    private String nome;
+    private String marca;
+    private String modelo;
     private String tipo;
     private boolean disponivel = true;
 
-    public Veiculo(String var1, String var2, String var3) {
-        this.placa = var1;
-        this.nome = var2;
-        this.tipo = var3;
+    public Veiculo(String placa, String marca, String modelo, String tipo) {
+        this.placa = placa;
+        this.marca = marca;
+        this.modelo = modelo;
+        this.tipo = tipo;
     }
 
     public String getPlaca() {
-        return this.placa;
+        return placa;
     }
 
-    public String getNome() {
-        return this.nome;
+    public String getMarca() {
+        return marca;
+    }
+
+    public String getModelo() {
+        return modelo;
     }
 
     public String getTipo() {
-        return this.tipo;
+        return tipo;
     }
 
     public boolean isDisponivel() {
