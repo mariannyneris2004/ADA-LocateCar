@@ -4,10 +4,10 @@ public class Veiculo {
     private String placa;
     private String marca;
     private String modelo;
-    private String tipo;
+    private TipoCarro tipo;
     private boolean disponivel = true;
 
-    public Veiculo(String placa, String marca, String modelo, String tipo) {
+    public Veiculo(String placa, String marca, String modelo, TipoCarro tipo) {
         this.placa = placa;
         this.marca = marca;
         this.modelo = modelo;
@@ -26,7 +26,7 @@ public class Veiculo {
         return modelo;
     }
 
-    public String getTipo() {
+    public TipoCarro getTipo() {
         return tipo;
     }
 

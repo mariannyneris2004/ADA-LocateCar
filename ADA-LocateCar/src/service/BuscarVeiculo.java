@@ -1,5 +1,6 @@
 package service;
 
+import exceptions.ObjetoNaoEncontradoException;
 import model.Veiculo;
 import repository.VeiculoRepository;
 
@@ -14,11 +15,19 @@ public class BuscarVeiculo {
     }
 
     public Veiculo buscarPorPlaca(String placa) {
-        return repository.buscar(placa);
+        if (repository.buscar(placa) != null){
+            return repository.buscar(placa);
+        } else {
+            throw new ObjetoNaoEncontradoException("Veículo não encontrado!");
+        }
     }
 
     public Map<String, Veiculo> veiculos(){
-        return repository.buscarLista();
+        if (repository.buscarLista().isEmpty()){
+            throw new ObjetoNaoEncontradoException("Nenhum veículo encontrado!");
+        } else {
+            return repository.buscarLista();
+        }
     }
 
     public Map<String, Veiculo> buscarPorModelo(String modelo){

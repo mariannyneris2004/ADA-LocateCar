@@ -1,5 +1,6 @@
 package service;
 
+import exceptions.ObjetoNaoEncontradoException;
 import model.Veiculo;
 import repository.VeiculoRepository;
 
@@ -11,7 +12,11 @@ public class AlterarVeiculo {
     }
 
     public Veiculo alterar(Veiculo veiculo) {
-        repository.cadastrar(veiculo);
-        return veiculo;
+        if (repository.buscar(veiculo.getPlaca()) == null){
+            throw new ObjetoNaoEncontradoException("Veículo não encontrado!");
+        } else {
+            repository.alterar(veiculo);
+            return veiculo;
+        }
     }
 }

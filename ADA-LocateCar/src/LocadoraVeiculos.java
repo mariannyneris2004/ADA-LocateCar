@@ -1,3 +1,6 @@
+import exceptions.ArgumentoInvalidoException;
+import exceptions.ObjetoCadastradoException;
+import exceptions.ObjetoNaoEncontradoException;
 import model.Aluguel;
 import model.Cliente;
 import model.Veiculo;
@@ -7,10 +10,13 @@ import service.AlterarVeiculo;
 import service.BuscarVeiculo;
 import service.CadastrarCliente;
 import service.CadastrarVeiculo;
+import utils.EntradaDeDados;
 import views.ClienteView;
+import views.MenuView;
 import views.VeiculoView;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -28,56 +34,52 @@ public class LocadoraVeiculos {
         BuscarVeiculo buscarVeiculo = new BuscarVeiculo(veiculoRepository);
         AlterarVeiculo alterarVeiculo = new AlterarVeiculo(veiculoRepository);
 
-        Scanner scanner = new Scanner(System.in);
-        int opcao;
+        try {
+            Scanner scanner = new Scanner(System.in);
+            int opcao = 0;
 
-        do {
-            System.out.println("=== Locadora de Veículos ===");
-            System.out.println("1. Cadastrar Veículo");
-            System.out.println("2. Alterar Veículo");
-            System.out.println("3. Buscar Veículo");
-            System.out.println("4. Cadastrar Cliente");
-            System.out.println("5. Alterar Cliente");
-            System.out.println("6. Alugar Veículo");
-            System.out.println("7. Devolver Veículo");
-            System.out.println("8. Sair");
-            System.out.print("Escolha uma opção: ");
-            opcao = scanner.nextInt();
+            do {
+                opcao = MenuView.menu();
 
-            switch (opcao) {
-                case 1:
-                    VeiculoView.cadastrarVeiculo(cadastrarVeiculo);
-                    break;
-                case 2:
-                    //alterarVeiculo();
-                    break;
-                case 3:
-                    VeiculoView.buscarVeiculo(buscarVeiculo);
-                    break;
-                case 4:
-                    ClienteView.cadastrarCliente(cadastrarCliente);
-                    break;
-                case 5:
-                    //alterarCliente();
-                    break;
-                case 6:
-                    //alugarVeiculo();
-                    break;
-                case 7:
-                    //devolverVeiculo();
-                    break;
-                case 8:
-                    System.out.println("Saindo do sistema...");
-                    break;
-                default:
-                    System.out.println("Opção inválida. Tente novamente.");
-                    break;
-            }
-        } while (opcao != 8);
+                switch (opcao) {
+                    case 1:
+                        VeiculoView.cadastrarVeiculo(cadastrarVeiculo);
+                        break;
+                    case 2:
+                        VeiculoView.alterarVeiculo(alterarVeiculo, buscarVeiculo);
+                        break;
+                    case 3:
+                        VeiculoView.buscarVeiculo(buscarVeiculo);
+                        break;
+                    case 4:
+                        ClienteView.cadastrarCliente(cadastrarCliente);
+                        break;
+                    case 5:
+                        //alterarCliente();
+                        break;
+                    case 6:
+                        //alugarVeiculo();
+                        break;
+                    case 7:
+                        //devolverVeiculo();
+                        break;
+                    case 8:
+                        System.out.println("Saindo do sistema...");
+                        break;
+                    default:
+                        System.out.println("Opção inválida. Tente novamente.");
+                        break;
+
+                }
+            } while (opcao != 8);
+        } catch (ArgumentoInvalidoException e){
+            System.out.println(e.getMessage());
+        } catch (ObjetoCadastradoException e){
+            System.out.println(e.getMessage());
+        } catch (ObjetoNaoEncontradoException e){
+            System.out.println(e.getMessage());
+        } catch (RuntimeException e){
+            System.out.println("Ocorreu um erro...");
+        }
     }
-
-
-
-
-
 }
