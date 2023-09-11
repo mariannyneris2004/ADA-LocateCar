@@ -36,34 +36,66 @@ public class LocadoraVeiculos {
 
         try {
             Scanner scanner = new Scanner(System.in);
-            int opcao = 0;
+            String opcao = "";
 
             do {
                 opcao = MenuView.menu();
 
                 switch (opcao) {
-                    case 1:
-                        VeiculoView.cadastrarVeiculo(cadastrarVeiculo);
+                    case "1":
+                        try {
+                            VeiculoView.cadastrarVeiculo(cadastrarVeiculo);
+                        } catch (ArgumentoInvalidoException e){
+                            System.out.println(e.getMessage());
+                        } catch (ObjetoCadastradoException e){
+                            System.out.println(e.getMessage());
+                        } catch (ObjetoNaoEncontradoException e){
+                            System.out.println(e.getMessage());
+                        }
                         break;
-                    case 2:
-                        VeiculoView.alterarVeiculo(alterarVeiculo, buscarVeiculo);
+                    case "2":
+                        try {
+                            VeiculoView.alterarVeiculo(alterarVeiculo, buscarVeiculo);
+                        } catch (ArgumentoInvalidoException e){
+                            System.out.println(e.getMessage());
+                        } catch (ObjetoCadastradoException e){
+                            System.out.println(e.getMessage());
+                        } catch (ObjetoNaoEncontradoException e){
+                            System.out.println(e.getMessage());
+                        }
                         break;
-                    case 3:
-                        VeiculoView.buscarVeiculo(buscarVeiculo);
+                    case "3":
+                        try {
+                            VeiculoView.buscarVeiculo(buscarVeiculo);
+                        } catch (ArgumentoInvalidoException e){
+                            System.out.println(e.getMessage());
+                        } catch (ObjetoCadastradoException e){
+                            System.out.println(e.getMessage());
+                        } catch (ObjetoNaoEncontradoException e){
+                            System.out.println(e.getMessage());
+                        }
                         break;
-                    case 4:
-                        ClienteView.cadastrarCliente(cadastrarCliente);
+                    case "4":
+                        try {
+                            ClienteView.cadastrarCliente(cadastrarCliente);
+                        } catch (ArgumentoInvalidoException e){
+                            System.out.println(e.getMessage());
+                        } catch (ObjetoCadastradoException e){
+                            System.out.println(e.getMessage());
+                        } catch (ObjetoNaoEncontradoException e){
+                            System.out.println(e.getMessage());
+                        }
                         break;
-                    case 5:
+                    case "5":
                         //alterarCliente();
                         break;
-                    case 6:
+                    case "6":
                         //alugarVeiculo();
                         break;
-                    case 7:
+                    case "7":
                         //devolverVeiculo();
                         break;
-                    case 8:
+                    case "8":
                         System.out.println("Saindo do sistema...");
                         break;
                     default:
@@ -71,13 +103,7 @@ public class LocadoraVeiculos {
                         break;
 
                 }
-            } while (opcao != 8);
-        } catch (ArgumentoInvalidoException e){
-            System.out.println(e.getMessage());
-        } catch (ObjetoCadastradoException e){
-            System.out.println(e.getMessage());
-        } catch (ObjetoNaoEncontradoException e){
-            System.out.println(e.getMessage());
+            } while (!opcao.equals("8"));
         } catch (RuntimeException e){
             System.out.println("Ocorreu um erro...");
         }

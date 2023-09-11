@@ -61,9 +61,7 @@ public class VeiculoView {
 
         Map<String, Veiculo> veiculosEncontrados = buscarVeiculo.buscarPorModelo(parteModelo);
 
-        if (veiculosEncontrados.isEmpty()){
-            throw new ObjetoNaoEncontradoException("Nenhum veículo encontrado!");
-        } else {
+        if (!veiculosEncontrados.isEmpty()){
             System.out.println("Veículos encontrados:");
             System.out.println("======================");
             for (Veiculo veiculo : veiculosEncontrados.values()) {
@@ -75,6 +73,8 @@ public class VeiculoView {
                 System.out.println();
                 System.out.println("======================");
             }
+        } else {
+            throw new ObjetoNaoEncontradoException("Nenhum veículo encontrado!");
         }
     }
 }

@@ -15,16 +15,16 @@ public class BuscarVeiculo {
     }
 
     public Veiculo buscarPorPlaca(String placa) {
-        if (repository.buscar(placa) != null){
-            return repository.buscar(placa);
-        } else {
+        if (repository.buscar(placa) == null){
             throw new ObjetoNaoEncontradoException("Veículo não encontrado!");
+        } else {
+            return repository.buscar(placa);
         }
     }
 
     public Map<String, Veiculo> veiculos(){
         if (repository.buscarLista().isEmpty()){
-            throw new ObjetoNaoEncontradoException("Nenhum veículo encontrado!");
+            throw new ObjetoNaoEncontradoException("Nenhum veículo cadastrado!");
         } else {
             return repository.buscarLista();
         }

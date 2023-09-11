@@ -4,7 +4,7 @@ import exceptions.ArgumentoInvalidoException;
 import utils.EntradaDeDados;
 
 public class MenuView {
-    public static int menu(){
+    public static String menu(){
         System.out.println("=== Locadora de Veículos ===");
         System.out.println("1. Cadastrar Veículo");
         System.out.println("2. Alterar Veículo");
@@ -16,7 +16,7 @@ public class MenuView {
         System.out.println("8. Sair");
         System.out.print("Escolha uma opção: ");
         try {
-            int opcao = EntradaDeDados.getInt();
+            String opcao = EntradaDeDados.getString();
             return opcao;
         } catch (RuntimeException e){
             throw new ArgumentoInvalidoException("Opção inválida!");
