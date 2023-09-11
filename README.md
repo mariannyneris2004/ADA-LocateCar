@@ -36,7 +36,7 @@ O ADA LocateCar é um projeto de aplicação de gerenciamento de aluguel de veí
 
 ## Observações
 
-Durante o desenvolvimento deste projeto, nossa equipe enfrentou vários desafios interessantes, como [insira aqui descrições de desafios específicos]. No entanto, também encontramos soluções criativas e eficazes para lidar com esses desafios, contribuindo para o nosso crescimento como desenvolvedores.
+Durante o desenvolvimento deste projeto, nossa equipe enfrentou vários desafios interessantes, como criação de exceptions para o número da placa, maiúscula e minúscula, nome da marca e etc. No entanto, também encontramos soluções criativas e eficazes para lidar com esses desafios, contribuindo para o nosso crescimento como desenvolvedores.
 
-Esperamos que este sistema de gerenciamento de locadora de veículos atenda às necessidades da indústria e proporcione uma experiência de usuário eficiente e intuitiva. Agradecemos por considerar o ADA LocateCar.
+Esperamos que este sistema de gerenciamento de locadora de veículos atenda às necessidades da indústria e proporcione uma experiência de usuário eficiente e intuitiva.
 
