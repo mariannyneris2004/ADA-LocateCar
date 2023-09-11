@@ -21,4 +21,9 @@ public class Cliente {
     public String getDocumento() {
         return documento;
     }
+
+    public void setNome(String novoNome) {
+        this.nome = novoNome;
+    }
+    
 }
