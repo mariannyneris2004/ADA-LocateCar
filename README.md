@@ -34,10 +34,6 @@ O ADA LocateCar é um projeto de aplicação de gerenciamento de aluguel de veí
 
 - Registra a devolução dos veículos alugados, calculando os valores com base nas regras de negócio estabelecidas.
 
-## Link para o Projeto
-
-[Insira aqui o link para o repositório do GitHub]
-
 ## Observações
 
 Durante o desenvolvimento deste projeto, nossa equipe enfrentou vários desafios interessantes, como [insira aqui descrições de desafios específicos]. No entanto, também encontramos soluções criativas e eficazes para lidar com esses desafios, contribuindo para o nosso crescimento como desenvolvedores.
