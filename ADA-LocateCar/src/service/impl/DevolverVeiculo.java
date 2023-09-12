@@ -1,18 +1,22 @@
-package service;
+package service.impl;
 
 import model.Aluguel;
 import model.Cliente;
 import model.Veiculo;
 import repository.AluguelRepository;
+import service.api.Devolver;
+import service.impl.BuscarAluguel;
+import service.impl.CalcularAluguel;
 
-public class DevolverVeiculo {
+public class DevolverVeiculo implements Devolver {
     AluguelRepository repository;
 
     public DevolverVeiculo(AluguelRepository repository) {
         this.repository = repository;
     }
 
-    public double devolverVeiculo(BuscarAluguel buscarAluguel, Cliente cliente, Veiculo veiculo,
+    @Override
+    public double devolverVeiculo(service.api.BuscarAluguel buscarAluguel, Cliente cliente, Veiculo veiculo,
                                   String dataAluguel, String horaAluguel, String dataDevolucao,
                                   String horaDevolucao, String local) {
         Aluguel aluguel = buscarAluguel.buscarPorClienteEVeiculo(cliente, veiculo, dataAluguel);

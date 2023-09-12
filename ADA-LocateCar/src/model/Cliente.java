@@ -1,6 +1,6 @@
 package model;
 
-public class Cliente {
+public class Cliente<T> {
     private int id;
     private String nome;
     private String documento;

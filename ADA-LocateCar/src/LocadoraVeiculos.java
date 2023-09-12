@@ -1,46 +1,39 @@
 import exceptions.ArgumentoInvalidoException;
 import exceptions.ObjetoCadastradoException;
 import exceptions.ObjetoNaoEncontradoException;
-import exceptions.VeiculoNaoEncontradoException;
-import model.Aluguel;
-import model.Cliente;
-import model.Veiculo;
 import repository.AluguelRepository;
 import repository.ClienteRepository;
 import repository.VeiculoRepository;
-import service.*;
-import utils.EntradaDeDados;
+import service.api.*;
+import service.impl.*;
+import service.impl.AlterarCliente;
+import service.impl.AlterarVeiculo;
+import service.impl.BuscarAluguel;
+import service.impl.BuscarCliente;
+import service.impl.BuscarVeiculo;
+import service.impl.CadastrarCliente;
+import service.impl.CadastrarVeiculo;
 import views.ClienteView;
 import views.MenuView;
 import views.VeiculoView;
 
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Scanner;
-
 public class LocadoraVeiculos {
-    private static List<Veiculo> veiculos = new ArrayList<>();
-    private static List<Cliente> clientes = new ArrayList<>();
-    private static List<Aluguel> alugueis = new ArrayList<>();
-
     public static void main(String[] args) {
         ClienteRepository clienteRepository = new ClienteRepository();
         VeiculoRepository veiculoRepository = new VeiculoRepository();
         AluguelRepository aluguelRepository = new AluguelRepository();
 
-        CadastrarVeiculo cadastrarVeiculo = new CadastrarVeiculo(veiculoRepository);
-        CadastrarCliente cadastrarCliente = new CadastrarCliente(clienteRepository);
-        BuscarVeiculo buscarVeiculo = new BuscarVeiculo(veiculoRepository);
-        BuscarCliente buscarCliente = new BuscarCliente(clienteRepository);
-        BuscarAluguel buscarAluguel = new BuscarAluguel(aluguelRepository);
-        DevolverVeiculo devolverVeiculo = new DevolverVeiculo(aluguelRepository);
-        AlterarVeiculo alterarVeiculo = new AlterarVeiculo(veiculoRepository);
-        AlterarCliente alterarCliente = new AlterarCliente(clienteRepository);
-        AlugarVeiculo alugarVeiculo = new AlugarVeiculo(aluguelRepository);
+        service.api.CadastrarVeiculo cadastrarVeiculo = new CadastrarVeiculo(veiculoRepository);
+        service.api.CadastrarCliente cadastrarCliente = new CadastrarCliente(clienteRepository);
+        service.api.BuscarVeiculo buscarVeiculo = new BuscarVeiculo(veiculoRepository);
+        service.api.BuscarCliente buscarCliente = new BuscarCliente(clienteRepository);
+        service.api.BuscarAluguel buscarAluguel = new BuscarAluguel(aluguelRepository);
+        Devolver devolverVeiculo = new DevolverVeiculo(aluguelRepository);
+        service.api.AlterarVeiculo alterarVeiculo = new AlterarVeiculo(veiculoRepository);
+        service.api.AlterarCliente alterarCliente = new AlterarCliente(clienteRepository);
+        Alugar alugarVeiculo = new AlugarVeiculo(aluguelRepository);
 
         try {
-            Scanner scanner = new Scanner(System.in);
             String opcao = "";
 
             do {

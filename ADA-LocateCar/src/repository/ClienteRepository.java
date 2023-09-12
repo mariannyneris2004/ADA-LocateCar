@@ -39,11 +39,4 @@ public class ClienteRepository {
         return clientes.get(id);
     }
 
-    public boolean deletar(Cliente cliente) {
-        if (buscarPorDocumento(cliente.getDocumento()) != null){
-            clientes.remove(cliente.getId());
-            return true;
-        }
-        return false;
-    }
 }

@@ -1,4 +1,4 @@
-package service;
+package service.impl;
 
 import model.Cliente;
 import repository.ClienteRepository;
@@ -6,21 +6,19 @@ import repository.ClienteRepository;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BuscarCliente {
+public class BuscarCliente implements service.api.BuscarCliente {
     ClienteRepository repository;
 
     public BuscarCliente(ClienteRepository repository) {
         this.repository = repository;
     }
 
-    public Cliente buscarPorId(Integer id) {
-        return repository.buscarPorId(id);
-    }
-
+    @Override
     public Map<Integer, Cliente> clientes(){
         return repository.buscarLista();
     }
 
+    @Override
     public Map<Integer, Cliente> buscarPorNome(String nome){
         Map<Integer, Cliente> clientes = new HashMap<>();
         for (Cliente cliente:clientes().values()) {
@@ -31,6 +29,7 @@ public class BuscarCliente {
         return clientes;
     }
 
+    @Override
     public Cliente buscarClientePorDocumento(String documento) {
         for (Cliente cliente : clientes().values()) {
             if (cliente.getDocumento().equals(documento)) {

@@ -2,18 +2,20 @@ package views;
 
 import exceptions.ArgumentoInvalidoException;
 import exceptions.ObjetoNaoEncontradoException;
-import exceptions.VeiculoNaoEncontradoException;
 import model.Aluguel;
 import model.Cliente;
 import model.TipoCarro;
 import model.Veiculo;
-import service.*;
+import service.api.Alugar;
+import service.api.BuscarAluguel;
+import service.api.Devolver;
+import service.impl.*;
 import utils.EntradaDeDados;
 
 import java.util.Map;
 
 public class VeiculoView {
-    public static void cadastrarVeiculo(CadastrarVeiculo cadastrarVeiculo) {
+    public static void cadastrarVeiculo(service.api.CadastrarVeiculo cadastrarVeiculo) {
         System.out.print("Digite a placa do veículo: ");
         String placa = EntradaDeDados.getString();
         System.out.print("Digite a marca do veículo: ");
@@ -33,7 +35,8 @@ public class VeiculoView {
 
     }
 
-    public static void alterarVeiculo(AlterarVeiculo alterarVeiculo, BuscarVeiculo buscarVeiculo) {
+    public static void alterarVeiculo(service.api.AlterarVeiculo alterarVeiculo,
+                                      service.api.BuscarVeiculo buscarVeiculo) {
         System.out.print("Digite a placa do veículo que deseja alterar: ");
         String placa = EntradaDeDados.getString();
         Veiculo veiculo = buscarVeiculo.buscarPorPlaca(placa);
@@ -45,17 +48,17 @@ public class VeiculoView {
         System.out.print("Digite o tipo do veículo (PEQUENO, MEDIO ou SUV): ");
         String tipo = EntradaDeDados.getString();
 
-        if ("pequeno".equalsIgnoreCase(tipo) || "medio".equalsIgnoreCase(tipo) || "suv".equalsIgnoreCase(tipo.toUpperCase())){
-            throw new ArgumentoInvalidoException("Tipo Inválido!");
-        } else {
-            Veiculo veiculoAlterado = new Veiculo(veiculo.getPlaca(), marca, modelo, TipoCarro.valueOf(tipo));
+        try {
+            Veiculo veiculoAlterado = new Veiculo(veiculo.getPlaca(), marca, modelo, TipoCarro.valueOf(tipo.toUpperCase()));
 
             alterarVeiculo.alterar(veiculoAlterado);
             System.out.println("Veículo alterado com sucesso!");
+        } catch (IllegalArgumentException e){
+            throw new ArgumentoInvalidoException("Tipo inválido!");
         }
     }
 
-    public static void buscarVeiculo(BuscarVeiculo buscarVeiculo) {
+    public static void buscarVeiculo(service.api.BuscarVeiculo buscarVeiculo) {
         System.out.print("Digite parte do modelo do veículo: ");
         String parteModelo = EntradaDeDados.getString();
 
@@ -78,8 +81,9 @@ public class VeiculoView {
         }
     }
 
-    public static void alugarVeiculo(BuscarVeiculo buscarVeiculo, BuscarCliente buscarCliente,
-                                      AlugarVeiculo alugarVeiculo) throws ObjetoNaoEncontradoException {
+    public static void alugarVeiculo(service.api.BuscarVeiculo buscarVeiculo,
+                                     service.api.BuscarCliente buscarCliente,
+                                     Alugar alugarVeiculo) throws ObjetoNaoEncontradoException {
         for (Veiculo veiculoCadastrado:buscarVeiculo.veiculos().values()) {
             System.out.println(veiculoCadastrado.getPlaca() + " - " + veiculoCadastrado.getModelo() + " / " +
                     veiculoCadastrado.getMarca());
@@ -116,8 +120,10 @@ public class VeiculoView {
         }
     }
 
-    public static void devolverVeiculo(BuscarVeiculo buscarVeiculo, BuscarCliente buscarCliente,
-                                        BuscarAluguel buscarAluguel, DevolverVeiculo devolverVeiculo) {
+    public static void devolverVeiculo(service.api.BuscarVeiculo buscarVeiculo,
+                                       service.api.BuscarCliente buscarCliente,
+                                       service.api.BuscarAluguel buscarAluguel,
+                                       Devolver devolverVeiculo) {
         System.out.print("Digite a placa do veículo que deseja devolver: ");
         String placa = EntradaDeDados.getString();
         Veiculo veiculo = buscarVeiculo.buscarPorPlaca(placa);

@@ -1,4 +1,4 @@
-package service;
+package service.impl;
 
 import exceptions.ObjetoNaoEncontradoException;
 import model.Veiculo;
@@ -7,13 +7,14 @@ import repository.VeiculoRepository;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BuscarVeiculo {
+public class BuscarVeiculo implements service.api.BuscarVeiculo {
     VeiculoRepository repository;
 
     public BuscarVeiculo(VeiculoRepository repository) {
         this.repository = repository;
     }
 
+    @Override
     public Veiculo buscarPorPlaca(String placa) {
         if (repository.buscar(placa) == null){
             throw new ObjetoNaoEncontradoException("Veículo não encontrado!");
@@ -22,6 +23,7 @@ public class BuscarVeiculo {
         }
     }
 
+    @Override
     public Map<String, Veiculo> veiculos(){
         if (repository.buscarLista().isEmpty()){
             throw new ObjetoNaoEncontradoException("Nenhum veículo cadastrado!");
@@ -30,6 +32,7 @@ public class BuscarVeiculo {
         }
     }
 
+    @Override
     public Map<String, Veiculo> buscarPorModelo(String modelo){
         Map<String, Veiculo> veiculos = new HashMap<>();
         for (Veiculo veiculo:veiculos().values()) {

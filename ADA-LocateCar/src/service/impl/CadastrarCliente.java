@@ -1,17 +1,18 @@
-package service;
+package service.impl;
 
 import exceptions.ArgumentoInvalidoException;
 import exceptions.ObjetoCadastradoException;
 import model.Cliente;
 import repository.ClienteRepository;
 
-public class CadastrarCliente {
+public class CadastrarCliente implements service.api.CadastrarCliente {
     ClienteRepository repository;
 
     public CadastrarCliente(ClienteRepository repository) {
         this.repository = repository;
     }
 
+    @Override
     public Cliente cadastrar(Cliente cliente) {
         if (repository.buscarPorDocumento(cliente.getDocumento()) != null){
             throw new ObjetoCadastradoException("Cliente já cadastrado!");

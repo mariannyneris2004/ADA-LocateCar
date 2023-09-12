@@ -24,10 +24,6 @@ public class AluguelRepository {
         return this.alugueis;
     }
 
-    public Aluguel buscarPorId(int id) {
-        return alugueis.get(id);
-    }
-
     public Aluguel buscarPorClienteEVeiculo(Cliente cliente, Veiculo veiculo, String dataAluguel) {
         for (Aluguel aluguel:buscarLista().values()) {
             if (aluguel.getVeiculo().equals(veiculo) && aluguel.getCliente().equals(cliente) &&

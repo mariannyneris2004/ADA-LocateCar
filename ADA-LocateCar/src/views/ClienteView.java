@@ -2,13 +2,13 @@ package views;
 
 import exceptions.ArgumentoInvalidoException;
 import model.Cliente;
-import service.AlterarCliente;
-import service.BuscarCliente;
-import service.CadastrarCliente;
+import service.impl.AlterarCliente;
+import service.impl.BuscarCliente;
+import service.impl.CadastrarCliente;
 import utils.EntradaDeDados;
 
 public class ClienteView {
-    public static void cadastrarCliente(CadastrarCliente cadastrarCliente) {
+    public static void cadastrarCliente(service.api.CadastrarCliente cadastrarCliente) {
         System.out.print("Digite o tipo de cliente (PF para Pessoa Física, PJ para Pessoa Jurídica): ");
         String tipoCliente = EntradaDeDados.getString();
 
@@ -35,7 +35,8 @@ public class ClienteView {
         }
     }
 
-    public static void alterarCliente(AlterarCliente alterarCliente, BuscarCliente buscarCliente) {
+    public static void alterarCliente(service.api.AlterarCliente alterarCliente,
+                                      service.api.BuscarCliente buscarCliente) {
         System.out.print("Digite o documento do cliente (CPF ou CNPJ): ");
         String id = EntradaDeDados.getString();
         Cliente cliente = buscarCliente.buscarClientePorDocumento(id);

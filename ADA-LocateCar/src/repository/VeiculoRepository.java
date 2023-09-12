@@ -30,12 +30,4 @@ public class VeiculoRepository {
         }
         return null;
     }
-
-    public boolean deletar(Veiculo veiculo) {
-        if (buscar(veiculo.getPlaca()) != null){
-            veiculos.remove(veiculo.getPlaca());
-            return true;
-        }
-        return false;
-    }
 }
