@@ -1,18 +1,20 @@
 package model;
 
 public class Aluguel {
+    private int id;
     private Veiculo veiculo;
     private Cliente cliente;
-    private String data;
-    private int horasAlugadas;
+    private String dataAluguel;
+    private String dataDevolucao;
+    private String horaAluguel;
+    private String horaDevolucao;
     private String local;
 
-    public Aluguel(Veiculo veiculo, Cliente cliente, String data, int horasAlugadas, String local) {
+    public Aluguel(Veiculo veiculo, Cliente cliente, String dataAluguel, String horaAluguel) {
         this.veiculo = veiculo;
         this.cliente = cliente;
-        this.data = data;
-        this.horasAlugadas = horasAlugadas;
-        this.local = local;
+        this.dataAluguel = dataAluguel;
+        this.horaAluguel = horaAluguel;
     }
 
     public Veiculo getVeiculo() {
@@ -24,14 +26,30 @@ public class Aluguel {
     }
 
     public String getData() {
-        return data;
+        return dataAluguel;
     }
 
-    public int getHorasAlugadas() {
-        return horasAlugadas;
+    public int getId() {
+        return id;
     }
 
-    public String getLocal() {
-        return local;
+    public String getHoraAluguel() {
+        return horaAluguel;
+    }
+
+    public void setLocal(String local) {
+        this.local = local;
+    }
+
+    public void setDataDevolucao(String dataDevolucao) {
+        this.dataDevolucao = dataDevolucao;
+    }
+
+    public void setHoraDevolucao(String horaDevolucao) {
+        this.horaDevolucao = horaDevolucao;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

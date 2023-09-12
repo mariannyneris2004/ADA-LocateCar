@@ -11,12 +11,13 @@ public class ClienteRepository {
 
     public Cliente cadastrar(Cliente cliente) {
         ultimoId++;
+        cliente.setId(ultimoId);
         this.clientes.put(ultimoId, cliente);
         return cliente;
     }
 
     public Cliente alterar(Cliente cliente) {
-        if(buscarPorDocumento(cliente.getDocumento()) != null){
+        if(buscarPorId(cliente.getId()) != null){
             clientes.replace(cliente.getId(), cliente);
         }
         return null;

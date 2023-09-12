@@ -25,5 +25,12 @@ public class Cliente {
     public void setNome(String novoNome) {
         this.nome = novoNome;
     }
-    
+
+    public void setDocumento(String documento) {
+        this.documento = documento;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

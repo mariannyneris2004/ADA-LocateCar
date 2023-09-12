@@ -4,8 +4,6 @@ import model.Veiculo;
 
 import java.util.HashMap;
 import java.util.Map;
-import exceptions.ClienteNaoEncontradoException;
-import exceptions.VeiculoNaoEncontradoException;
 
 public class VeiculoRepository {
     private Map<String, Veiculo> veiculos = new HashMap<>();

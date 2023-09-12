@@ -1,4 +1,3 @@
-/*
 package service;
 
 import model.Cliente;
@@ -22,23 +21,22 @@ public class BuscarCliente {
         return repository.buscarLista();
     }
 
-    public Map<Integer, Cliente> buscarPorNome(String documento){
+    public Map<Integer, Cliente> buscarPorNome(String nome){
         Map<Integer, Cliente> clientes = new HashMap<>();
         for (Cliente cliente:clientes().values()) {
-            if (cliente.getNome().toUpperCase().contains(documento.toUpperCase())){
+            if (cliente.getNome().toUpperCase().contains(nome.toUpperCase())){
                 clientes.put(cliente.getId(), cliente);
             }
         }
         return clientes;
     }
 
-    private static Cliente buscarClientePorId(String id) {
-        for (Cliente cliente : clientes) {
-            if (cliente.getId().equalsIgnoreCase(id)) {
+    public Cliente buscarClientePorDocumento(String documento) {
+        for (Cliente cliente : clientes().values()) {
+            if (cliente.getDocumento().equals(documento)) {
                 return cliente;
             }
         }
         return null;
     }
 }
-*/

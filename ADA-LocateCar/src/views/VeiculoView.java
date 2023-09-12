@@ -2,15 +2,15 @@ package views;
 
 import exceptions.ArgumentoInvalidoException;
 import exceptions.ObjetoNaoEncontradoException;
+import exceptions.VeiculoNaoEncontradoException;
+import model.Aluguel;
+import model.Cliente;
 import model.TipoCarro;
 import model.Veiculo;
-import service.AlterarVeiculo;
-import service.CadastrarVeiculo;
-import service.BuscarVeiculo;
+import service.*;
 import utils.EntradaDeDados;
 
 import java.util.Map;
-import java.util.Scanner;
 
 public class VeiculoView {
     public static void cadastrarVeiculo(CadastrarVeiculo cadastrarVeiculo) {
@@ -45,7 +45,7 @@ public class VeiculoView {
         System.out.print("Digite o tipo do veículo (PEQUENO, MEDIO ou SUV): ");
         String tipo = EntradaDeDados.getString();
 
-        if ("pequeno".equalsIgnoreCase(tipo) || "medio".equalsIgnoreCase(tipo) || "suv".equalsIgnoreCase(tipo)){
+        if ("pequeno".equalsIgnoreCase(tipo) || "medio".equalsIgnoreCase(tipo) || "suv".equalsIgnoreCase(tipo.toUpperCase())){
             throw new ArgumentoInvalidoException("Tipo Inválido!");
         } else {
             Veiculo veiculoAlterado = new Veiculo(veiculo.getPlaca(), marca, modelo, TipoCarro.valueOf(tipo));
@@ -77,4 +77,88 @@ public class VeiculoView {
             throw new ObjetoNaoEncontradoException("Nenhum veículo encontrado!");
         }
     }
+
+    public static void alugarVeiculo(BuscarVeiculo buscarVeiculo, BuscarCliente buscarCliente,
+                                      AlugarVeiculo alugarVeiculo) throws ObjetoNaoEncontradoException {
+        for (Veiculo veiculoCadastrado:buscarVeiculo.veiculos().values()) {
+            System.out.println(veiculoCadastrado.getPlaca() + " - " + veiculoCadastrado.getModelo() + " / " +
+                    veiculoCadastrado.getMarca());
+        }
+        System.out.print("Digite a placa do veículo que deseja alugar: ");
+        String placa = EntradaDeDados.getString();
+        Veiculo veiculo = buscarVeiculo.buscarPorPlaca(placa);
+
+        if (veiculo != null) {
+            if (veiculo.isDisponivel()) {
+                System.out.print("Digite o documento do cliente (CPF ou CNPJ): ");
+                String idCliente = EntradaDeDados.getString();
+                Cliente cliente = buscarCliente.buscarClientePorDocumento(idCliente);
+
+                if (cliente != null) {
+                    System.out.print("Digite a data do aluguel (dd/mm/aaaa): ");
+                    String dataAluguel = EntradaDeDados.getString();
+
+                    System.out.print("Digite o horário do aluguel (hh:mm): ");
+                    String horaAluguel = EntradaDeDados.getString();
+
+                    Aluguel aluguel = new Aluguel(veiculo, cliente, dataAluguel, horaAluguel);
+                    alugarVeiculo.alugarVeiculo(aluguel);
+                    System.out.println(cliente.getNome() + " alugou o veículo " + veiculo.getModelo() +
+                            ", com a placa: " + veiculo.getPlaca());
+                } else {
+                    throw new ObjetoNaoEncontradoException("Cliente não encontrado!");
+                }
+            } else {
+                throw new ObjetoNaoEncontradoException("Veículo já alugado!");
+            }
+        } else {
+            throw new ObjetoNaoEncontradoException("Veículo não encontrado!");
+        }
+    }
+
+    public static void devolverVeiculo(BuscarVeiculo buscarVeiculo, BuscarCliente buscarCliente,
+                                        BuscarAluguel buscarAluguel, DevolverVeiculo devolverVeiculo) {
+        System.out.print("Digite a placa do veículo que deseja devolver: ");
+        String placa = EntradaDeDados.getString();
+        Veiculo veiculo = buscarVeiculo.buscarPorPlaca(placa);
+
+        if (veiculo != null) {
+            System.out.print("Digite o documento do cliente (CPF ou CNPJ): ");
+            String idCliente = EntradaDeDados.getString();
+            Cliente cliente = buscarCliente.buscarClientePorDocumento(idCliente);
+
+            if (cliente != null) {
+                System.out.print("Digite a data de aluguel (dd/mm/aaaa): ");
+                String dataAluguel = EntradaDeDados.getString();
+
+                Aluguel aluguel = buscarAluguel.buscarPorClienteEVeiculo(cliente, veiculo, dataAluguel);
+
+                if (aluguel != null){
+                    System.out.print("Digite a data da devolução (dd/mm/aaaa): ");
+                    String dataDevolucao = EntradaDeDados.getString();
+
+                    System.out.print("Digite o horário da devolução (hh:mm): ");
+                    String horaDevolucao = EntradaDeDados.getString();
+
+                    System.out.print("Digite o local para a devolução: ");
+                    String local = EntradaDeDados.getString();
+
+                    double valorTotal = devolverVeiculo.devolverVeiculo(buscarAluguel, cliente, veiculo, aluguel.getData(),
+                            aluguel.getHoraAluguel(), dataDevolucao, horaDevolucao, local);
+
+                    System.out.println("Veículo devolvido com sucesso.");
+                    System.out.println(cliente.getNome() + " alugou o veículo " + veiculo.getModelo() + " / " +
+                            veiculo.getMarca() + " e o devolveu em " + local);
+                    System.out.println("Valor do aluguel: R$ " + valorTotal);
+                } else {
+                    throw new ObjetoNaoEncontradoException("Aluguel não encontrado para esse cliente e veículo");
+                }
+            } else {
+                throw new ObjetoNaoEncontradoException("Cliente não encontrado.");
+            }
+        } else {
+            throw new ObjetoNaoEncontradoException("Veículo não encontrado.");
+        }
+    }
+
 }

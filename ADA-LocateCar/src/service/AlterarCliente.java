@@ -1,25 +1,24 @@
-/*
 package service;
 
+import exceptions.ArgumentoInvalidoException;
+import exceptions.ObjetoNaoEncontradoException;
 import model.Cliente;
-
-import java.util.Scanner;
+import repository.ClienteRepository;
 
 public class AlterarCliente {
-    private static void alterarCliente() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Digite o ID do cliente (CPF ou CNPJ): ");
-        String id = scanner.nextLine();
-        Cliente cliente = buscarClientePorId(id);
+    ClienteRepository repository;
+    public AlterarCliente(ClienteRepository repository) {
+        this.repository = repository;
+    }
 
-        if (cliente != null) {
-            System.out.print("Digite o novo nome do cliente: ");
-            String novoNome = scanner.nextLine();
-            //cliente.setNome(novoNome);
-            System.out.println("Cliente alterado com sucesso!");
+    public Cliente alterar(Cliente cliente) {
+        if(cliente.getDocumento().length() != 11 && cliente.getDocumento().length() != 14){
+            throw new ArgumentoInvalidoException("Documento inválido!");
+        } else if (cliente.getNome().isEmpty()) {
+            throw new ArgumentoInvalidoException("O nome do cliente não pode ser vazio!");
         } else {
-            System.out.println("Cliente não encontrado.");
+            repository.alterar(cliente);
+            return cliente;
         }
     }
 }
-*/
